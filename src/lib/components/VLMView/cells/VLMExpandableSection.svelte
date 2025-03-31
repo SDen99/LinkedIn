@@ -1,8 +1,5 @@
 <script lang="ts">
-	let { 
-		title,
-		sectionId
-	} = $props<{
+	let { title, sectionId } = $props<{
 		title: string;
 		sectionId: string;
 	}>();
@@ -22,22 +19,13 @@
 		onkeydown={(e) => e.key === 'Enter' && toggleSection()}
 		aria-expanded={!isCollapsed}
 	>
-		<svg
-			class="h-3 w-3" 
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2" 
-		>
-			<path
-				d={isCollapsed
-					? 'M9 5l7 7-7 7'
-					: 'M19 9l-7 7-7-7'}
-			></path>
+		<svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+			<path d={isCollapsed ? 'M9 5l7 7-7 7' : 'M19 9l-7 7-7-7'}></path>
 		</svg>
 		<span class="text-xs font-medium">{title}</span>
 	</button>
 	<div class={isCollapsed ? 'hidden' : 'pl-2'}>
 		<slot></slot>
+		<!--> still to update <-->
 	</div>
 </div>
