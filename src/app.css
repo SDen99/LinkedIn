@@ -1,0 +1,211 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--background: 0 0% 100%;
+		--foreground: 224 71.4% 4.1%;
+		--muted: 220 14.3% 95.9%;
+		--muted-foreground: 220 8.9% 46.1%;
+		--popover: 0 0% 100%;
+		--popover-foreground: 224 71.4% 4.1%;
+		--card: 0 0% 100%;
+		--card-foreground: 224 71.4% 4.1%;
+		--border: 220 13% 91%;
+		--input: 220 13% 91%;
+		--primary: 220.9 39.3% 11%;
+		--primary-foreground: 210 20% 98%;
+		--secondary: 220 14.3% 95.9%;
+		--secondary-foreground: 220.9 39.3% 11%;
+		--accent: 220 14.3% 95.9%;
+		--accent-foreground: 220.9 39.3% 11%;
+		--destructive: 0 72.2% 50.6%;
+		--destructive-foreground: 210 20% 98%;
+		--ring: 224 71.4% 4.1%;
+		--radius: 0.5rem;
+		--sidebar-background: 0 0% 98%;
+		--sidebar-foreground: 240 5.3% 26.1%;
+		--sidebar-primary: 240 5.9% 10%;
+		--sidebar-primary-foreground: 0 0% 98%;
+		--sidebar-accent: 240 4.8% 95.9%;
+		--sidebar-accent-foreground: 240 5.9% 10%;
+		--sidebar-border: 220 13% 91%;
+		--sidebar-ring: 217.2 91.2% 59.8%;
+	}
+
+	.dark {
+		--background: 224 71.4% 4.1%;
+		--foreground: 210 20% 98%;
+		--muted: 215 27.9% 16.9%;
+		--muted-foreground: 217.9 10.6% 64.9%;
+		--popover: 224 71.4% 4.1%;
+		--popover-foreground: 210 20% 98%;
+		--card: 224 71.4% 4.1%;
+		--card-foreground: 210 20% 98%;
+		--border: 215 27.9% 16.9%;
+		--input: 215 27.9% 16.9%;
+		--primary: 210 20% 98%;
+		--primary-foreground: 220.9 39.3% 11%;
+		--secondary: 215 27.9% 16.9%;
+		--secondary-foreground: 210 20% 98%;
+		--accent: 215 27.9% 16.9%;
+		--accent-foreground: 210 20% 98%;
+		--destructive: 0 62.8% 30.6%;
+		--destructive-foreground: 210 20% 98%;
+		--ring: 216 12.2% 83.9%;
+		--sidebar-background: 240 5.9% 10%;
+		--sidebar-foreground: 240 4.8% 95.9%;
+		--sidebar-primary: 224.3 76.3% 48%;
+		--sidebar-primary-foreground: 0 0% 100%;
+		--sidebar-accent: 240 3.7% 15.9%;
+		--sidebar-accent-foreground: 240 4.8% 95.9%;
+		--sidebar-border: 240 3.7% 15.9%;
+		--sidebar-ring: 217.2 91.2% 59.8%;
+	}
+}
+
+@layer base {
+	* {
+		@apply border-border;
+	}
+	body {
+		@apply bg-background text-foreground;
+	}
+}
+
+@layer base {
+	/* Font size variations */
+	:root {
+		--font-size-small: 0.875;
+		--font-size-medium: 1;
+		--font-size-large: 1.125;
+	}
+
+	/* Base font sizing */
+	html {
+		font-size: calc(var(--font-size-medium) * 16px);
+	}
+
+	/* Font size classes */
+	html.font-small {
+		font-size: calc(var(--font-size-small) * 16px);
+	}
+
+	html.font-large {
+		font-size: calc(var(--font-size-large) * 16px);
+	}
+
+	/* Color accent variations */
+	html.accent-blue {
+		--primary: 217.2 91.2% 59.8%;
+		--primary-foreground: 224 71.4% 4.1%;
+		--ring: 217.2 91.2% 59.8%;
+	}
+
+	html.accent-purple {
+		--primary: 271.5 91.7% 65.1%;
+		--primary-foreground: 224 71.4% 4.1%;
+		--ring: 271.5 91.7% 65.1%;
+	}
+
+	html.accent-green {
+		--primary: 142.1 70.6% 45.3%;
+		--primary-foreground: 0 0% 100%;
+		--ring: 142.1 70.6% 45.3%;
+	}
+
+	html.accent-orange {
+		--primary: 24.6 95% 53.1%;
+		--primary-foreground: 0 0% 100%;
+		--ring: 24.6 95% 53.1%;
+	}
+
+	/* High contrast mode */
+	html.high-contrast {
+		--foreground: 0 0% 0%;
+		--background: 0 0% 100%;
+		--muted: 0 0% 88%;
+		--muted-foreground: 0 0% 20%;
+		--popover: 0 0% 100%;
+		--popover-foreground: 0 0% 0%;
+		--card: 0 0% 100%;
+		--card-foreground: 0 0% 0%;
+		--border: 0 0% 40%;
+		--input: 0 0% 80%;
+	}
+
+	/* High contrast dark mode */
+	html.dark.high-contrast {
+		--background: 0 0% 0%;
+		--foreground: 0 0% 100%;
+		--muted: 0 0% 20%;
+		--muted-foreground: 0 0% 90%;
+		--popover: 0 0% 0%;
+		--popover-foreground: 0 0% 100%;
+		--card: 0 0% 0%;
+		--card-foreground: 0 0% 100%;
+		--border: 0 0% 70%;
+		--input: 0 0% 30%;
+	}
+
+	/* Reduced motion preferences */
+	html.reduced-motion * {
+		animation-duration: 0.001ms !important;
+		transition-duration: 0.001ms !important;
+	}
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+	html {
+		font-size: calc(var(--font-size-medium) * 14px);
+	}
+}
+
+/* Ensure smooth transitions between themes */
+:root {
+	transition:
+		background-color 0.3s ease,
+		color 0.3s ease;
+}
+
+/* Disable transitions if user prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	:root {
+		transition: none;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	::-webkit-scrollbar {
+		width: 10px;
+		height: 10px;
+	}
+
+	::-webkit-scrollbar-track {
+		background: hsl(var(--background));
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: hsl(var(--muted));
+		border-radius: 5px;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background: hsl(var(--muted-foreground));
+	}
+}
+
+/* Also add this to make it work with your custom dark class */
+.dark ::-webkit-scrollbar-track {
+	background: hsl(var(--background));
+}
+
+.dark ::-webkit-scrollbar-thumb {
+	background: hsl(var(--muted));
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+	background: hsl(var(--muted-foreground));
+}
