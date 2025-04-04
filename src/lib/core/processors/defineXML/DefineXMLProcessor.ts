@@ -1,8 +1,10 @@
+// lib/core/processors/defineXML/DefineXMLProcessor.ts
 import { parseDefineXML } from '$lib/core/processors/defineXML/ParseDefineXML';
 import { FileType, type FileProcessor, type ValidationResult } from '$lib/core/types/fileTypes';
 import type { DatasetLoadingState } from '$lib/core/types/types';
 import type { ProcessingResult } from '$lib/core/processors/types';
 import { graphXML } from '$lib/utils/graphXML';
+import type { ItemGroup, ItemRef } from '$lib/types/define-xml'; // Import ItemRef
 
 export class DefineXMLProcessor implements FileProcessor {
 	validateFile(file: File): ValidationResult {
@@ -67,6 +69,18 @@ export class DefineXMLProcessor implements FileProcessor {
 			// Generate graph data using graphXML
 			let graphData = null;
 			try {
+				// --- CHANGED SECTION: Reconstruct flat ItemRefs for graphXML ---
+				const allItemRefsForGraph = (defineData.ItemGroups || []).reduce(
+					(acc: ItemRef[], group: ItemGroup) => {
+						if (group.ItemRefs) {
+							acc.push(...group.ItemRefs); // Add refs from this group
+						}
+						return acc;
+					},
+					[] // Initialize accumulator as an empty array of ItemRef
+				);
+				// --- END OF CHANGED SECTION ---
+
 				graphData = graphXML({
 					itemGroups: defineData.ItemGroups || [],
 					itemDefs: defineData.ItemDefs || [],
@@ -74,7 +88,7 @@ export class DefineXMLProcessor implements FileProcessor {
 					comments: defineData.Comments || [],
 					CodeLists: defineData.CodeLists || [],
 					standards: defineData.Standards || [],
-					itemRefs: defineData.ItemRefs || [],
+					itemRefs: allItemRefsForGraph, // Pass the reconstructed flat list
 					valueListDefs: defineData.ValueListDefs || [],
 					whereClauseDefs: defineData.WhereClauseDefs || []
 				});

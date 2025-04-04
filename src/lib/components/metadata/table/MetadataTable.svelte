@@ -1,5 +1,12 @@
 <script lang="ts">
-	import type { ParsedDefineXML, Method, Comment, CodeList, ItemRef } from '$lib/types/define-xml';
+	import type {
+		ParsedDefineXML,
+		Method,
+		Comment,
+		CodeList,
+		ItemRef,
+		ItemDef
+	} from '$lib/types/define-xml'; // Added ItemDef
 	import {
 		Table,
 		TableBody,
@@ -14,34 +21,36 @@
 		isMethodExpanded,
 		isCodelistExpanded,
 		isAnyExpansionActive,
-		toggleMethodExpansion,
-		toggleCodelistExpansion,
-		EXPANSION_TYPE
+		toggleExpansion, // Use the generic toggle
+		EXPANSION_TYPE // Import the types
 	} from '../shared/expansionUtils';
 	import { hasCodelist, getCodeList } from '../shared/codelistUtils';
-	import { ChevronDown, ChevronRight } from 'lucide-svelte';
+	import { ChevronDown, ChevronRight } from 'lucide-svelte'; // Use correct import
 
 	let { define, datasetName, filteredVariables, methods, comments, codeLists } = $props<{
 		define: ParsedDefineXML;
 		datasetName: string;
-		filteredVariables: ItemRef[];
+		filteredVariables: (ItemRef & { itemDef?: ItemDef | null; hasVLM: boolean })[]; // Use combined type
 		methods: Method[];
 		comments: Comment[];
 		codeLists: CodeList[];
 	}>();
 
-	// Handle variable expansion
-	function handleExpandToggle(variable: ItemRef) {
+	// Handle variable expansion using the generic toggle
+	function handleExpandToggle(variable: ItemRef & { itemDef?: ItemDef | null }) {
+		// Use combined type
 		if (variable.MethodOID) {
-			toggleMethodExpansion(variable, datasetName);
+			toggleExpansion(variable, datasetName, EXPANSION_TYPE.METHOD);
 		}
 		if (hasCodelist(variable, codeLists)) {
-			toggleCodelistExpansion(variable, datasetName);
+			// Pass the combined variable object
+			toggleExpansion(variable, datasetName, EXPANSION_TYPE.CODELIST);
 		}
 	}
 
 	// Helper for checking expansion state for chevron
 	function isExpanded(variable: ItemRef): boolean {
+		// Expects ItemRef part
 		return isAnyExpansionActive(variable, datasetName);
 	}
 </script>
@@ -64,6 +73,7 @@
 
 		<TableBody class="overflow-y-auto">
 			{#each filteredVariables || [] as variable (variable.OID)}
+				<!-- Use the combined type -->
 				<!-- Regular row with variable data -->
 				<TableRow>
 					<TableCell style="min-width: 160px; width: 160px" class="font-mono text-sm">
@@ -81,6 +91,7 @@
 								{variable.itemDef?.Name || variable.OID?.split('.')[2] || ''}
 							</span>
 							{#if hasCodelist(variable, codeLists)}
+								<!-- Pass combined object -->
 								<Badge variant="secondary" class="px-1 py-0">CL</Badge>
 							{/if}
 							{#if variable.hasVLM}
@@ -127,6 +138,7 @@
 					<TableCell style="min-width: 192px; width: 192px">
 						<div class="flex items-center gap-2">
 							{#if variable.MethodOID || hasCodelist(variable, codeLists)}
+								<!-- Pass combined object -->
 								<div
 									class="flex cursor-pointer items-center gap-2"
 									role="button"
@@ -135,10 +147,11 @@
 									onkeydown={(e) => e.key === 'Enter' && handleExpandToggle(variable)}
 								>
 									<div class="h-4 w-4 shrink-0">
+										<!-- Use ChevronRight/Down for better visual cue -->
 										{#if isExpanded(variable)}
-											<span class="inline-block rotate-90">›</span>
+											<ChevronDown class="h-4 w-4" />
 										{:else}
-											<span class="inline-block">›</span>
+											<ChevronRight class="h-4 w-4" />
 										{/if}
 									</div>
 									<div class="truncate font-mono text-xs">
@@ -148,6 +161,7 @@
 										{:else if variable.itemDef?.Origin}
 											{variable.itemDef.Origin}
 										{:else if hasCodelist(variable, codeLists)}
+											<!-- Pass combined object -->
 											{getCodeList(variable.itemDef, codeLists)?.Name || 'Codelist'}
 										{/if}
 									</div>
@@ -188,9 +202,10 @@
 												'No description available'}
 										</div>
 
-										{#if variable.itemDef?.Comment}
+										{#if variable.itemDef?.CommentOID}
+											<!-- Check CommentOID -->
 											<div class="mt-2 text-sm text-muted-foreground">
-												{comments.find((c: Comment) => c.OID === variable.itemDef?.Comment)
+												{comments.find((c: Comment) => c.OID === variable.itemDef?.CommentOID)
 													?.Description || 'No comment description available'}
 											</div>
 										{/if}
@@ -214,8 +229,9 @@
 																{/if}
 																{#if item.Aliases?.length}
 																	<div class="mt-1 text-xs text-muted-foreground">
-																		Aliases:{item.Aliases.map(
-																			(a) => `${a.Name ?? ''} ${a.Context ? `(${a.Context})` : ''}`
+																		<!-- Corrected Alias Mapping -->
+																		Aliases: {item.Aliases.map(
+																			(a) => `${a.Name ?? ''}${a.Context ? ` (${a.Context})` : ''}`
 																		).join(', ')}
 																	</div>
 																{/if}
@@ -234,8 +250,9 @@
 																<div
 																	class="overflow-hidden text-ellipsis text-xs text-muted-foreground"
 																>
+																	<!-- Corrected Alias Mapping -->
 																	Aliases: {item.Aliases.map(
-																		(a) => `${a.Name ?? ''} ${a.Context ? `(${a.Context})` : ''}`
+																		(a) => `${a.Name ?? ''}${a.Context ? ` (${a.Context})` : ''}`
 																	).join(', ')}
 																</div>
 															{/if}
@@ -244,14 +261,16 @@
 												</div>
 											{/if}
 
+											<!-- *** THIS IS THE FIX *** -->
 											{#if codeList?.Aliases?.length}
 												<div class="text-xs text-muted-foreground">
+													<!-- Move .join(', ') INSIDE the {} -->
 													Aliases: {codeList.Aliases.map(
 														(a) => `${a.Name ?? ''}${a.Context ? ` (${a.Context})` : ''}`
-													)}
 													).join(', ')}
 												</div>
 											{/if}
+											<!-- *** END OF FIX *** -->
 										</div>
 									{/if}
 								{/if}

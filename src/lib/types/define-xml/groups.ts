@@ -1,5 +1,6 @@
-// src/lib/types/define-xml/groups.ts
+// lib/types/define-xml/groups.ts
 import type { ItemRef } from './variables';
+
 /**
  * Represents a dataset (ItemGroup) in Define-XML
  * Maps to ItemGroupDef elements
@@ -22,6 +23,7 @@ export interface ItemGroup {
 	HasNoData?: string | null;
 	IsNonStandard?: string | null;
 	DeveloperNotes?: string | null;
-	// Optional collection of ItemRefs
-	ItemRefs?: Array<ItemRef>;
+
+	// Collection of ItemRefs belonging to this group
+	ItemRefs: Array<ItemRef>; // Ensure this is present and non-optional
 }
