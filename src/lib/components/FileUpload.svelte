@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button } from '$lib/components/core/button';
-	import { Upload } from 'svelte-lucide';
+	import { Upload } from 'lucide-svelte';
 
 	let { handleFileChangeEvent } = $props();
 	let fileInput = $state<HTMLInputElement | null>(null);

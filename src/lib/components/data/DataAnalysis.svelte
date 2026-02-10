@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { tableUIStore } from '$lib/core/stores/tableUIStore.svelte';
 	import { datasetStore } from '$lib/core/stores/datasetStore.svelte';
-	import { Barcode } from 'svelte-lucide';
+	import { Barcode } from 'lucide-svelte';
 	import * as Card from '$lib/components/core/card';
 
 	// Define interfaces for better type safety
