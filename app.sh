@@ -7,5 +7,12 @@ export NODE_ENV=production
 export ORIGIN="https://${DOMINO_PROJECT_OWNER}-${DOMINO_PROJECT_NAME}.domino.tech"
 
 cd /mnt/code
-npm ci --production
+
+# Install all dependencies (need devDependencies for the build step)
+npm ci --engine-strict=false
+
+# Build the app
+npm run build
+
+# Start the server
 node build/index.js
