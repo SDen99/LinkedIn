@@ -7,7 +7,7 @@
 		Loader2,
 		AlertCircle,
 		ChevronDown
-	} from 'lucide-svelte';
+	} from '@lucide/svelte';
 	import * as Button from '$lib/components/core/button';
 	import { Progress } from '$lib/components/core/progress';
 	import * as Tooltip from '$lib/components/core/tooltip';

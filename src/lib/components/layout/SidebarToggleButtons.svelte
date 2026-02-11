@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button } from '$lib/components/core/button';
-	import { PanelLeftClose, PanelRightClose, PanelLeftOpen, PanelRightOpen } from 'lucide-svelte';
+	import { PanelLeftClose, PanelRightClose, PanelLeftOpen, PanelRightOpen } from '@lucide/svelte';
 	import { uiStore } from '$lib/core/stores/UIStore.svelte';
   </script>
   

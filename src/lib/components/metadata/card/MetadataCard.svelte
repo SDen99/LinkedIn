@@ -11,7 +11,7 @@
 		EXPANSION_TYPE
 	} from '../shared/expansionUtils';
 	import { hasCodelist, getCodeList } from '../shared/codelistUtils';
-	import { ChevronDown, ChevronRight } from 'lucide-svelte';
+	import { ChevronDown, ChevronRight } from '@lucide/svelte';
 
 	let { define, datasetName, filteredVariables, methods, comments, codeLists } = $props<{
 		define: ParsedDefineXML;

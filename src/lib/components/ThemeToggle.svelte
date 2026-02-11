@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { themeStore } from '$lib/core/stores/ThemeStore.svelte';
-	import { Moon, Sun, Monitor } from 'lucide-svelte';
+	import { Moon, Sun, Monitor } from '@lucide/svelte';
 	import {
 		DropdownMenu,
 		DropdownMenuContent,

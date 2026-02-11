@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ScrollArea } from '$lib/components/core/scroll-area';
 	import { Input } from '$lib/components/core/input';
-	import { Search } from 'lucide-svelte';
+	import { Search } from '@lucide/svelte';
 	import { datasetStore } from '$lib/core/stores/datasetStore.svelte';
 	import { storeCoordinator } from '$lib/core/stores/storeCoordinator.svelte';
 	import { DatasetService } from '$lib/core/services/datasetService';

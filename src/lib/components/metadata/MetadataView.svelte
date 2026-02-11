@@ -7,14 +7,14 @@
 		ItemGroup
 	} from '$lib/types/define-xml'; // Added ItemGroup
 	import { normalizeDatasetId } from '$lib/core/utils/datasetUtils';
-	import { Search, Table as TableIcon, LayoutList } from 'lucide-svelte';
+	import { Search, Table as TableIcon, LayoutList } from '@lucide/svelte';
 	import { Input } from '$lib/components/core/input';
 	import { Button } from '$lib/components/core/button';
 	import MetadataTable from './table/MetadataTable.svelte';
 	import MetadataCard from './card/MetadataCard.svelte';
 	import { metadataViewStore } from '$lib/core/stores/MetadataViewStore.svelte';
 	import { uiStore } from '$lib/core/stores/UIStore.svelte';
-	import { ChevronDown, ChevronRight } from 'lucide-svelte';
+	import { ChevronDown, ChevronRight } from '@lucide/svelte';
 	import {
 		getAllExpansionKeys,
 		isMethodExpanded,

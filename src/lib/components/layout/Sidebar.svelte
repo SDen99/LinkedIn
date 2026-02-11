@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ScrollArea } from '$lib/components/core/scroll-area';
 	import { Button } from '$lib/components/core/button';
-	import { PanelLeftOpen, PanelRightOpen } from 'lucide-svelte';
+	import { PanelLeftOpen, PanelRightOpen } from '@lucide/svelte';
 	import { uiStore } from '$lib/core/stores/UIStore.svelte';
 	import type { Snippet } from 'svelte';
 

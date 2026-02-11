@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { X } from 'lucide-svelte';
+	import { X } from '@lucide/svelte';
 	import * as AlertDialog from '$lib/components/core/alert-dialog/index.js';
 	import * as Button from '$lib/components/core/button';
 	import * as Tooltip from '$lib/components/core/tooltip';
